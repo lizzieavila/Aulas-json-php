@@ -14,5 +14,15 @@
         $inserir    .= "(nometransportadora,endereco,cidade,estadoID) ";
         $inserir    .= "VALUES ";
         $inserir    .= "('$nome','$endereco','$cidade', $estado)";        
-    }
+   
+
+    $operacao_insercao = mysqli_query($conecta,$inserir);
+
+    if($operacao_insercao ){
+        echo "ok";
+    }else{
+
+    echo "fail";
+}
+}
 ?>
