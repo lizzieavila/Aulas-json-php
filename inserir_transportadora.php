@@ -1,5 +1,5 @@
   <?php
-    $conecta = mysqli_connect("localhost","root","","aula");
+    $conecta = mysqli_connect("localhost","root","","aulas");
     if ( mysqli_connect_errno()  ) {
         die("Conexao falhou: " . mysqli_connect_errno());
     }
@@ -19,10 +19,13 @@
     $operacao_insercao = mysqli_query($conecta,$inserir);
 
     if($operacao_insercao ){
-        echo "ok";
+       $retorno["sucesso"] = true;
+       $retorno["mensagem"] = "Inserido com sucesso.";
     }else{
 
-    echo "fail";
+   $retorno["sucesso"] = false;
+    $retorno["mensagem"] = "Erro.";
 }
+echo json_encode($retorno);
 }
 ?>

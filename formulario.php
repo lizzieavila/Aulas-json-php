@@ -1,6 +1,6 @@
 <?php
     // Criar objeto de conexao
-    $conecta = mysqli_connect("localhost","root","","aula");
+    $conecta = mysqli_connect("localhost","root","","aulas");
     if ( mysqli_connect_errno()  ) {
         die("Conexao falhou: " . mysqli_connect_errno());
     }
@@ -20,7 +20,7 @@
         <meta charset="UTF-8">
         <title>PHP com AJAX</title> 
         
-        <link href="_css/estilo.css" rel="stylesheet">
+        <link href="estilo.css" rel="stylesheet">
     </head>
 
     <body>
@@ -62,31 +62,40 @@
        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
   crossorigin="anonymous"></script>
         <script>
-         $('#formulario_transportadora').submit(function(event) {
+         $('#formulario_transportadora').submit(function(e) {
              //nao executar a action caso exista
-             event.preventDefault();
+             e.preventDefault();
              var formulario = $(this);
              // mostra dados inseridos alert(formulario.serialize());
              var retorno = inserirFormulario(formulario)
          });
-            function inserirFormulario(dados){
-                $.ajax({
-                    type:"POST",
-                    data:dados.serialize(),
-                    url:"inserir_tranportadora.php", async:false
-                }).then(sucesso,falha);
 
-                function sucesso(data){
-                    console.log(data);
+           function inserirFormulario(dados){
+            $.ajax({
+                type:"POST",
+                data:dados.serialize(),
+                url:"inserir_transportadora.php",async:false
+            }).then(sucesso,falha);
 
-                }
+            function sucesso(data){
+                $sucesso = $.parseJSON(data)["sucesso"];
+                 $mensagem = $.parseJSON(data)["mensagem"];
+                $('#mensagem').show();
 
-                function falha(){
-                    console.log("erro");
+                if ($sucesso) {
+                    $('#mensagem').html($mensagem);
+                }else{ 
+                    $('#mensagem').html($.parseJSON(data)["mensagem"]);
 
                 }
 
             }
+            function falha(){
+                console.log('Erro');
+            }
+        }
+           
+        
 
         </script>
     </body>
