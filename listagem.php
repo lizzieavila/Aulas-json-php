@@ -12,23 +12,24 @@
         <div id="listagem"></div>
         <script src="jquery.js"></script>
         <script>
-            $('button#botao').click(function() {
-                $('div#listagem').css('display','block');
+            $('#botao').click(function() {
+                $('#listagem').css('display','block');
                 carregarDados();
             }); 
             
             function carregarDados() {
-                $.getJSON('_json/produtos.json', function(data) {
+                $.getJSON('gerar_json.php', function(data) {
                     var elemento;
 
                     elemento = "<ul>";
                     $.each(data, function(i, valor) {
                         elemento += "<li class='nome'>" + valor.nomeproduto + "</li>"; 
-                        elemento += "<li class='preco'>" + valor.precounitario + "</li>"; 
+                        elemento += "<li class='preco'>" + valor.precounitario + "</li>";
+                        elemento += "<li class='imagem'><img src=" + valor.imagempequena + "></li>";  
                     });
                     elemento += "</ul>";
 
-                    $('div#listagem').html(elemento);
+                    $('#listagem').html(elemento);
                 });
             }
         </script>
